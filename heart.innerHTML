@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yuvraj ❤️ Riya Valentine</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Comic Sans MS", sans-serif;
+      background: linear-gradient(to bottom, #fff, #ffb6c1);
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Card */
+    .card {
+      background: rgba(255, 255, 255, 0.92);
+      width: 90%;
+      max-width: 520px;
+      padding: 25px;
+      border-radius: 25px;
+      text-align: center;
+      box-shadow: 0 0 25px rgba(255, 0, 80, 0.4);
+      position: relative;
+      z-index: 5;
+    }
+
+    h1 {
+      font-size: 32px;
+      color: #ff0055;
+    }
+
+    p {
+      font-size: 22px;
+      color: #222;
+    }
+
+    input {
+      width: 90%;
+      padding: 12px;
+      font-size: 20px;
+      border-radius: 12px;
+      border: 2px solid pink;
+      outline: none;
+      margin-top: 10px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 12px 18px;
+      font-size: 20px;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      background: #ff2e75;
+      color: white;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: #d40055;
+    }
+
+    .naruto {
+      margin-top: 15px;
+      font-size: 22px;
+      color: green;
+      font-weight: bold;
+      display: none;
+      animation: pop 0.5s ease;
+    }
+
+    @keyframes pop {
+      from {transform: scale(0.5); opacity: 0;}
+      to {transform: scale(1); opacity: 1;}
+    }
+
+    /* Floating Hearts */
+    .heart {
+      position: absolute;
+      color: red;
+      font-size: 22px;
+      animation: floatUp 6s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {transform: translateY(100vh); opacity: 1;}
+      100% {transform: translateY(-10vh); opacity: 0;}
+    }
+
+    /* Butterflies */
+    .butterfly {
+      position: absolute;
+      font-size: 30px;
+      animation: fly 4s linear infinite;
+    }
+
+    @keyframes fly {
+      0% {left: -50px; top: 80%;}
+      100% {left: 110%; top: 10%;}
+    }
+
+    .finalmsg {
+      font-size: 18px;
+      white-space: pre-line;
+      margin-top: 15px;
+      color: #111;
+    }
+
+    .yesno button {
+      margin: 10px;
+      width: 120px;
+    }
+
+    .noBtn {
+      background: gray;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Floating Hearts -->
+  <script>
+    for (let i = 0; i < 25; i++) {
+      let heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+      document.body.appendChild(heart);
+    }
+  </script>
+
+  <div class="card">
+    <h1>💖 Hinata's Valentine 💖</h1>
+
+    <p id="question"></p>
+    <input id="answer" placeholder="Type your answer...">
+
+    <button onclick="nextStep()">Submit ❤️</button>
+
+    <div class="naruto" id="narutoReact">
+      Naruto: WOW 👏 Amazing answer Yuvraj!!
+    </div>
+
+    <div id="valentineBox" class="yesno"></div>
+
+    <p class="finalmsg" id="finalMessage"></p>
+  </div>
+
+  <script>
+    let questions = [
+      "Tumhare liye perfect love ka matlab kya hai?",
+      "Agar tum apne special person ko ek line bol sako, toh kya bolte?",
+      "Dream date choose karni ho toh mere sath karoge ya Riya ke sath? 😏❤️"
+    ];
+
+    let current = 0;
+    document.getElementById("question").innerText = questions[current];
+
+    function nextStep() {
+      let ans = document.getElementById("answer").value.trim();
+
+      if(ans === "") {
+        alert("Answer likho na baby 😭❤️");
+        return;
+      }
+
+      // Naruto reaction
+      let naruto = document.getElementById("narutoReact");
+      naruto.style.display = "block";
+      setTimeout(() => naruto.style.display = "none", 2000);
+
+      document.getElementById("answer").value = "";
+      current++;
+
+      if(current < questions.length) {
+        document.getElementById("question").innerText = questions[current];
+      } 
+      else {
+        document.getElementById("question").innerText =
+          "💝 Final Question...\nWill you be my Valentine?";
+
+        document.getElementById("answer").style.display = "none";
+
+        document.getElementById("valentineBox").innerHTML = `
+          <button onclick="yesClicked()">YES 💖</button>
+          <button class="noBtn" onclick="noClicked()">NO 😭</button>
+        `;
+      }
+    }
+
+    function noClicked() {
+      alert("Awww NO nahi bol sakte 😭❤️ YES karo na baby!");
+    }
+
+    function yesClicked() {
+
+      // Butterflies animation
+      for(let i=0;i<8;i++){
+        let b = document.createElement("div");
+        b.className="butterfly";
+        b.innerHTML="🦋";
+        b.style.top = Math.random()*80 + "%";
+        b.style.animationDuration=(2+Math.random()*3)+"s";
+        document.body.appendChild(b);
+
+        setTimeout(()=>b.remove(),5000);
+      }
+
+      document.getElementById("valentineBox").innerHTML = "";
+      document.getElementById("question").innerText =
+        "🎁 Final Surprise for Yuvraj...";
+
+      document.getElementById("finalMessage").innerText =
+`Meree pyaare babyy mere yuv 👀❤️
+
+I LOVE YOU isliye nahi ki tum ache dekte ho smart ho...
+me tumse isliye pyar karti hun cz tumhara pyara sa nature bacchon wala 😭❤️
+
+Tumhari caring, efforts, aur love mujhe bhout special feel karvate hain 🤌
+
+Jitni comfortable main tumhare sath hun utani kisi ke sath nahi hun 😭❤️
+
+Yeh Valentine bas ek moka tha tumpe pyaar barsane ka 😂❤️
+
+Thank you so much mere husband 👀❤️
+
+(Yuvraj, humra dil sirf tohare khatir dhadke la 😭😂❤️)
+
+Mmmmmwaaaaaaahhhhh 😘😘❤️`;
+    }
+  </script>
+
+</body>
+</html>
